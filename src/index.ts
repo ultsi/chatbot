@@ -69,13 +69,13 @@ bot.on('message', async (msg: Message) => {
     } else {
       // react to messages based on chance or mention
       if (Math.random() > 1-CHANCE || mention) {
-        const foundKey = markovGenerator.findPartialKeyFromData(text)
+        let foundKey = markovGenerator.findPartialKeyFromData(text)
         if (foundKey !== '') {
           let generatedResponse = markovGenerator.generate(foundKey, MARKOV_RESPONSE_LIMIT).join(MARKOV_DELIMITER)
           if (generatedResponse.length > 0) {
 
             // make text start with a capital letter and end in a period
-            generatedResponse = generatedResponse[0].toUpperCase() + generatedResponse.substring(1);
+            foundKey = foundKey[0].toUpperCase() + foundKey.substring(1);
             if (generatedResponse[generatedResponse.length - 1].match(/\w/g))  {
                 generatedResponse += randomEnding();
             }

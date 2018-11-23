@@ -88,7 +88,7 @@ bot.on('message', async (msg: Message) => {
     if (wordsWithoutHighlights.length < MARKOV_ORDER + 1) return
 
     await saveMsg(chatId, wordsWithoutHighlights.join(MARKOV_DELIMITER))
-    markovGenerators[chatId].seed([msg.text])
+    markovGenerators[chatId].seed([wordsWithoutHighlights.join(MARKOV_DELIMITER)])
   } catch (err) {
     console.log(err)
     bot.sendMessage(62461364, `Chatbot error: ${err}`)

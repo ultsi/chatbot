@@ -31,6 +31,8 @@ const MARKOV_DELIMITER = ' '
 const MARKOV_RESPONSE_LIMIT = 15
 const BOT_NAME = 'Mertsibot'
 const CHANCE = 0.15
+const end_letters = ['.', '?', '!', '.', '?', '!', '.', '?', '!', '...', '!?', '???', " :D", " xD"]
+
 const token = process.env.TOKEN || 'not set'
 process.env.TOKEN = '***SECRET***'
 
@@ -69,8 +71,14 @@ bot.on('message', async (msg: Message) => {
       if (Math.random() > 1-CHANCE || mention) {
         const foundKey = markovGenerator.findPartialKeyFromData(text)
         if (foundKey !== '') {
-          const generatedResponse = markovGenerator.generate(foundKey, MARKOV_RESPONSE_LIMIT).join(MARKOV_DELIMITER)
+          let generatedResponse = markovGenerator.generate(foundKey, MARKOV_RESPONSE_LIMIT).join(MARKOV_DELIMITER)
           if (generatedResponse.length > 0) {
+
+            // make text start with a capital letter and end in a period
+            generatedResponse = generatedResponse[0].toUpperCase() + generatedResponse.substring(1);
+            if (generatedResponse[generatedResponse.length - 1].match(/\w/g))  {
+                generatedResponse += randomEnding();
+            }
             bot.sendMessage(chatId, `${foundKey} ${generatedResponse}`)
           }
         }
@@ -100,4 +108,8 @@ function decryptChatMsgs(chatId: number, chatIdMsgRow: chatIdMsgRow[]): string[]
   ))
 
   return decryptedMsgs
+}
+
+function randomEnding() {
+  return end_letters[Math.floor(Math.random()*end_letters.length)]
 }

@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npm run build:live",
     "build": "tsc -p .",
-    "build:live": "export $(cat .env | xargs) && ts-node src/index.ts"
+    "build:live": "export $(cat .env | xargs) && ts-node src/index.ts",
+    "start_prod": "node lib/index.js"
   },
   "author": "",
   "license": "GPL-3.0",

@@ -69,7 +69,7 @@ bot.on('message', async (msg: Message) => {
     } else {
       // react to messages based on chance or mention
       if (Math.random() > 1-CHANCE || mention) {
-        let foundKey = markovGenerator.findPartialKeyFromData(text)
+        let foundKey = markovGenerator.findPartialKeyFromData(mention ? `@${text}` : text) // search based on actual text content, not the highlight tag
         if (foundKey !== '') {
           let generatedResponse = markovGenerator.generate(foundKey, MARKOV_RESPONSE_LIMIT).join(MARKOV_DELIMITER)
           if (generatedResponse.length > 0) {

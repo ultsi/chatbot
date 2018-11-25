@@ -89,7 +89,6 @@ export class MarkovTextGenerator {
     let foundByKey: any = {}
     splittedData.forEach((item: string, i: number) => {
       if (this.mPartialKeys[item]) {
-        console.log(item)
         foundByKey[item] = this.mPartialKeys[item]
       }
     })

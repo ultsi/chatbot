@@ -85,7 +85,7 @@ bot.on('message', async (msg: Message) => {
       }
     }
 
-    if (wordsWithoutHighlights.length < MARKOV_ORDER + 1) return
+    if (wordsWithoutHighlights.length < MARKOV_ORDER + 1 || msg.forward_from) return
 
     await saveMsg(chatId, wordsWithoutHighlights.join(MARKOV_DELIMITER))
     markovGenerators[chatId].seed([wordsWithoutHighlights.join(MARKOV_DELIMITER)])

@@ -3,4 +3,3 @@ node_modules/*
 .env
 .env_docker
 env.cmd
-lib/

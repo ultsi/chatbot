@@ -10,4 +10,4 @@ RUN dpkg-reconfigure -f noninteractive tzdata
 
 COPY . .
 
-CMD ["node", "lib/index.js"]
+CMD ["npm", "run start_prod"]
